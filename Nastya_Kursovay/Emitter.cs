@@ -12,8 +12,8 @@ namespace TP_Kursovay
         public float GravitationY = 1; // пусть гравитация будет силой один пиксель за такт, нам хватит
         public int ParticlesCount = 500;
 
-        public int X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
-        public int Y; // соответствующая координата Y 
+        public float X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
+        public float Y; // соответствующая координата Y 
         public int Direction = 0; // вектор направления в градусах куда сыпет эмиттер
         public int Spreading = 360; // разброс частиц относительно Direction
         public int SpeedMin = 1; // начальная минимальная скорость движения частицы

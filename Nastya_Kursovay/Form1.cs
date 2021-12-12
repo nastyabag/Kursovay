@@ -14,6 +14,9 @@ namespace TP_Kursovay
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
 
+
+
+            float radius = 100;
             // а тут теперь вручную создаем
             emitter = new Emitter // создаю эмиттер и привязываю его к полю emitter
             {
@@ -27,16 +30,17 @@ namespace TP_Kursovay
                 X = picDisplay.Width / 2 - 100,
                 Y = picDisplay.Height / 2,
             };
-            circle = new Circle(picDisplay.Width / 2, picDisplay.Height / 2, 100);
+
+            circle = new Circle(picDisplay.Width / 2, picDisplay.Height / 2, radius, emitter);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             emitter.UpdateState(); // тут теперь обновляем эмиттер
+            circle.UpdateState();
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
                 g.Clear(Color.Black);
-
                 emitter.Render(g); // а тут теперь рендерим через эмиттер
                 circle.Render(g);
             }
