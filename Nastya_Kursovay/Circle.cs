@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace TP_Kursovay
 {
+    //Класс окружности
     public class Circle
     {
         public float X;
         public float Y;
         public float Radius;
-        public Emitter Emitter;
-        public Vector vector;
-        public float DirectionOffset;
-        public float SpeedOffset;
+        public Emitter Emitter; //Эммитер, прикрепленный к окружности
+        public Vector vector; //Вспомогательный вектор, для вычисления новой координаты, лежащей на окружности
+        public float DirectionOffset; //Скорость изменения направления движения частиц эммитером
+
+        //Конструктор окружности
         public Circle(float x, float y, float radius, Emitter emitter)
         {
             X = x;
@@ -24,26 +22,29 @@ namespace TP_Kursovay
             Radius = radius;
             Emitter = emitter;
             DirectionOffset = 5;
-            SpeedOffset = 5;
         }
 
+        //Обновляет положение эммитера, сдвигая его по часовой на DirectionOffset градусов
         public void UpdateState()
         {
-            vector = new Vector(Emitter.X - X, Emitter.Y - Y);
-
+            vector = new Vector(Emitter.X - X, Emitter.Y - Y); //Вычисляем вектор от центра окружности до эммитера
             double module = Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+
+            //Подкручиваем гравитацию, чтобы интересно было
             Emitter.GravitationX = (float)(vector.X / module);
             Emitter.GravitationY = (float)(vector.Y / module);
 
-            Emitter.Direction -= DirectionOffset % 360; //Смещение направления
+            Emitter.Direction -= DirectionOffset % 360; //Смещаем направление выброса частиц
 
-            float cs = (float)Math.Cos(5f / 180f * Math.PI); //Скорость изменения положения эммитера
+            //Поворачиваем вектор на 5 градусов по часовой стрелке
+            float cs = (float)Math.Cos(5f / 180f * Math.PI);
             float sn = (float)Math.Sin(5f / 180f * Math.PI);
 
             vector.X = vector.X * cs - vector.Y * sn;
             vector.Y = vector.X * sn + vector.Y * cs;
+            //====================================================
 
-            double epsilon; //Восстановление вектора после поворота (Устранениеи погрешности)
+            double epsilon; //Восстановление вектора после поворота (Устранение погрешности)
             do
             {
                 epsilon = Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y) - Radius;
@@ -58,13 +59,16 @@ namespace TP_Kursovay
             }
             while (Math.Abs(epsilon) >= 1.0);
 
+            //Превращаем вектор в точку (Новая позиция эммитера по окружности)
             vector.X += X;
             vector.Y += Y;
 
+            //Перемещаем эммитер в новую позицию
             Emitter.X = vector.X;
             Emitter.Y = vector.Y;
         }
 
+        //Отрисовка окружности
         public void Render(Graphics g)
         {
             // буду рисовать окружность с диаметром равным Power

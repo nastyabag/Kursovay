@@ -4,19 +4,19 @@ using System.Drawing;
 
 namespace TP_Kursovay
 {
+    //Эмиттер, генерирующий частицы
     public class Emitter
     {
+        //Список частиц, порожденные данным эммитером
         List<Particle> particles = new List<Particle>();
-        public int MousePositionX;
-        public int MousePositionY;
 
-        public float GravitationX = 0; // пусть гравитация будет силой один пиксель за такт, нам хватит
-        public float GravitationY = 0; // пусть гравитация будет силой один пиксель за такт, нам хватит
+        public float GravitationX = 0; // Гравитация X
+        public float GravitationY = 0; // Гравитация Y
 
-        public int ParticlesCount = 1500;
+        public int ParticlesCount = 1500; //Максимальное количество частиц, генерируемое эммитером
 
-        public double X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
-        public double Y; // соответствующая координата Y 
+        public double X; // координата X эмиттера
+        public double Y; // координата Y эмиттера
         public float Direction = 0; // вектор направления в градусах куда сыпет эмиттер
         public int Spreading = 360; // разброс частиц относительно Direction
         public int SpeedMin = 1; // начальная минимальная скорость движения частицы
@@ -25,37 +25,40 @@ namespace TP_Kursovay
         public int RadiusMax = 10; // максимальный радиус частицы
         public int LifeMin = 20; // минимальное время жизни частицы
         public int LifeMax = 100; // максимальное время жизни частицы
-        public int ParticlesPerTick = 10; // добавил новое поле
+        public int ParticlesPerTick = 10; //Частиц в тик
 
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
 
+        //Обновляет положение всех частиц
         public void UpdateState()
         {
             foreach (var particle in particles)
             {
-                particle.Life -= 1f;  // не трогаем
+                particle.Life -= 1f; 
                 if (particle.Life <= 0)
                 {
-                    ResetParticle(particle); // заменили этот блок на вызов сброса частицы 
+                    ResetParticle(particle); //Телепортируем частицы в точку эммитера, когда истекла жизнь
                 }
                 else
                 {
+                    //Обновляем положение частицы
                     particle.X += particle.SpeedX;
                     particle.Y += particle.SpeedY;
 
+                    //Обновляем положение частицы, так как существует гравитация
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
                 }
             }
 
-            // генерирую не более 10 штук за тик
-            for (var i = 0; i < 10; ++i)
+            // генерируем не более ParticlesPerTick частиц за тик
+            for (var i = 0; i < ParticlesPerTick; ++i)
             {
                 if (particles.Count < ParticlesCount)
                 {
-                    var particle = CreateParticle(); // и собственно теперь тут его вызываем
-                    ResetParticle(particle); // добавили вызов ResetParticle
+                    var particle = CreateParticle(); //Создание частицы
+                    ResetParticle(particle); //Перенос частицы в точку эммитера
                     particles.Add(particle);
                 }
                 else
@@ -65,6 +68,7 @@ namespace TP_Kursovay
             }
         }
 
+        //Отрисовывает все частицы
         public void Render(Graphics g)
         {
             foreach (var particle in particles)
@@ -73,7 +77,7 @@ namespace TP_Kursovay
             }
         }
 
-        // добавил новый метод, виртуальным, чтобы переопределять можно было
+        //Телепортирует частицу в точку эммитера
         public virtual void ResetParticle(Particle particle)
         {
             particle.Life = Particle.rand.Next(LifeMin, LifeMax);
@@ -89,14 +93,13 @@ namespace TP_Kursovay
 
             particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
             particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
-
             particle.Radius = Particle.rand.Next(RadiusMin, RadiusMax);
         }
 
-        /* добавил метод */
+        //Создает частицу
         public virtual Particle CreateParticle()
         {
-            var particle = new ParticleColorful();
+            var particle = new Particle();
             particle.FromColor = ColorFrom;
             particle.ToColor = ColorTo;
 

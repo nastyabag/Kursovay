@@ -60,7 +60,7 @@
             // TB_Direction
             // 
             this.TB_Direction.Location = new System.Drawing.Point(222, 417);
-            this.TB_Direction.Maximum = 360;
+            this.TB_Direction.Maximum = 365;
             this.TB_Direction.Minimum = 5;
             this.TB_Direction.Name = "TB_Direction";
             this.TB_Direction.Size = new System.Drawing.Size(102, 45);
