@@ -15,12 +15,16 @@ namespace TP_Kursovay
         public float Radius;
         public Emitter Emitter;
         public Vector vector;
+        public float DirectionOffset;
+        public float SpeedOffset;
         public Circle(float x, float y, float radius, Emitter emitter)
         {
             X = x;
             Y = y;
             Radius = radius;
             Emitter = emitter;
+            DirectionOffset = 5;
+            SpeedOffset = 5;
         }
 
         public void UpdateState()
@@ -31,7 +35,7 @@ namespace TP_Kursovay
             Emitter.GravitationX = (float)(vector.X / module);
             Emitter.GravitationY = (float)(vector.Y / module);
 
-            Emitter.Direction -= 30 % 360; //Смещение направление
+            Emitter.Direction -= DirectionOffset % 360; //Смещение направления
 
             float cs = (float)Math.Cos(5f / 180f * Math.PI); //Скорость изменения положения эммитера
             float sn = (float)Math.Sin(5f / 180f * Math.PI);
@@ -71,7 +75,6 @@ namespace TP_Kursovay
                    Radius * 2,
                    Radius * 2
                );
-            g.DrawLine(new Pen(Brushes.Red), new PointF(X, Y), new PointF((float)vector.X, (float)vector.Y));
         }
     }
 }

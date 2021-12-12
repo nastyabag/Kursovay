@@ -17,7 +17,7 @@ namespace TP_Kursovay
 
         public double X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
         public double Y; // соответствующая координата Y 
-        public int Direction = 0; // вектор направления в градусах куда сыпет эмиттер
+        public float Direction = 0; // вектор направления в градусах куда сыпет эмиттер
         public int Spreading = 360; // разброс частиц относительно Direction
         public int SpeedMin = 1; // начальная минимальная скорость движения частицы
         public int SpeedMax = 10; // начальная максимальная скорость движения частицы
@@ -101,23 +101,6 @@ namespace TP_Kursovay
             particle.ToColor = ColorTo;
 
             return particle;
-        }
-    }
-
-    public class TopEmitter : Emitter
-    {
-        public int Width; // длина экрана
-
-        public override void ResetParticle(Particle particle)
-        {
-            base.ResetParticle(particle); // вызываем базовый сброс частицы, там жизнь переопределяется и все такое
-
-            // а теперь тут уже подкручиваем параметры движения
-            particle.X = Particle.rand.Next(Width); // позиция X -- произвольная точка от 0 до Width
-            particle.Y = 0;  // ноль -- это верх экрана 
-
-            particle.SpeedY = 1; // падаем вниз по умолчанию
-            particle.SpeedX = Particle.rand.Next(-2, 2); // разброс влево и вправа у частиц 
         }
     }
 }
