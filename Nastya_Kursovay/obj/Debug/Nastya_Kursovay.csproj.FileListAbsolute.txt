@@ -1,0 +1,10 @@
+C:\Users\Pyperdok\source\repos\Nastya_Kursovay\Nastya_Kursovay\obj\Debug\Nastya_Kursovay.csprojAssemblyReference.cache
+C:\Users\Pyperdok\source\repos\Nastya_Kursovay\Nastya_Kursovay\obj\Debug\TP_Kursovay.Form1.resources
+C:\Users\Pyperdok\source\repos\Nastya_Kursovay\Nastya_Kursovay\obj\Debug\Nastya_Kursovay.Properties.Resources.resources
+C:\Users\Pyperdok\source\repos\Nastya_Kursovay\Nastya_Kursovay\obj\Debug\Nastya_Kursovay.csproj.GenerateResource.cache
+C:\Users\Pyperdok\source\repos\Nastya_Kursovay\Nastya_Kursovay\obj\Debug\Nastya_Kursovay.csproj.CoreCompileInputs.cache
+C:\Users\Pyperdok\source\repos\Nastya_Kursovay\Nastya_Kursovay\bin\Debug\Nastya_Kursovay.exe.config
+C:\Users\Pyperdok\source\repos\Nastya_Kursovay\Nastya_Kursovay\bin\Debug\Nastya_Kursovay.exe
+C:\Users\Pyperdok\source\repos\Nastya_Kursovay\Nastya_Kursovay\bin\Debug\Nastya_Kursovay.pdb
+C:\Users\Pyperdok\source\repos\Nastya_Kursovay\Nastya_Kursovay\obj\Debug\Nastya_Kursovay.exe
+C:\Users\Pyperdok\source\repos\Nastya_Kursovay\Nastya_Kursovay\obj\Debug\Nastya_Kursovay.pdb
