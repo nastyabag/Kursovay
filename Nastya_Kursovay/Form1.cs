@@ -14,20 +14,18 @@ namespace TP_Kursovay
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
 
-
-
             float radius = 100;
             // а тут теперь вручную создаем
             emitter = new Emitter // создаю эмиттер и привязываю его к полю emitter
             {
-                Direction = 300,
-                Spreading = 0,
+                Direction = 270,
+                Spreading = 50,
                 SpeedMin = 15,
                 SpeedMax = 15,
                 ColorFrom = Color.Gold,
                 ColorTo = Color.FromArgb(0, Color.Red),
                 ParticlesPerTick = 20,
-                X = picDisplay.Width / 2 - 100,
+                X = picDisplay.Width / 2 - radius,
                 Y = picDisplay.Height / 2,
             };
 
@@ -45,13 +43,6 @@ namespace TP_Kursovay
                 circle.Render(g);
             }
             picDisplay.Invalidate();
-        }
-
-        private void picDisplay_MouseMove(object sender, MouseEventArgs e)
-        {
-            // а тут в эмиттер передаем положение мыфки
-            emitter.MousePositionX = e.X;
-            emitter.MousePositionY = e.Y;
         }
     }
 }

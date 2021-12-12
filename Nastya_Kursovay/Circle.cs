@@ -27,13 +27,19 @@ namespace TP_Kursovay
         {
             vector = new Vector(Emitter.X - X, Emitter.Y - Y);
 
-            float cs = (float)Math.Cos(5f / 180f * Math.PI);
+            double module = Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+            Emitter.GravitationX = (float)(vector.X / module);
+            Emitter.GravitationY = (float)(vector.Y / module);
+
+            Emitter.Direction -= 30 % 360; //Смещение направление
+
+            float cs = (float)Math.Cos(5f / 180f * Math.PI); //Скорость изменения положения эммитера
             float sn = (float)Math.Sin(5f / 180f * Math.PI);
 
             vector.X = vector.X * cs - vector.Y * sn;
             vector.Y = vector.X * sn + vector.Y * cs;
 
-            double epsilon;
+            double epsilon; //Восстановление вектора после поворота (Устранениеи погрешности)
             do
             {
                 epsilon = Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y) - Radius;
@@ -51,8 +57,8 @@ namespace TP_Kursovay
             vector.X += X;
             vector.Y += Y;
 
-            Emitter.X = (float)vector.X;
-            Emitter.Y = (float)vector.Y;
+            Emitter.X = vector.X;
+            Emitter.Y = vector.Y;
         }
 
         public void Render(Graphics g)

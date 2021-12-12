@@ -9,11 +9,14 @@ namespace TP_Kursovay
         List<Particle> particles = new List<Particle>();
         public int MousePositionX;
         public int MousePositionY;
-        public float GravitationY = 1; // пусть гравитация будет силой один пиксель за такт, нам хватит
-        public int ParticlesCount = 500;
 
-        public float X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
-        public float Y; // соответствующая координата Y 
+        public float GravitationX = 0; // пусть гравитация будет силой один пиксель за такт, нам хватит
+        public float GravitationY = 0; // пусть гравитация будет силой один пиксель за такт, нам хватит
+
+        public int ParticlesCount = 1500;
+
+        public double X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
+        public double Y; // соответствующая координата Y 
         public int Direction = 0; // вектор направления в градусах куда сыпет эмиттер
         public int Spreading = 360; // разброс частиц относительно Direction
         public int SpeedMin = 1; // начальная минимальная скорость движения частицы
@@ -22,7 +25,7 @@ namespace TP_Kursovay
         public int RadiusMax = 10; // максимальный радиус частицы
         public int LifeMin = 20; // минимальное время жизни частицы
         public int LifeMax = 100; // максимальное время жизни частицы
-        public int ParticlesPerTick = 1; // добавил новое поле
+        public int ParticlesPerTick = 10; // добавил новое поле
 
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
@@ -31,7 +34,7 @@ namespace TP_Kursovay
         {
             foreach (var particle in particles)
             {
-                particle.Life -= 0.5f;  // не трогаем
+                particle.Life -= 1f;  // не трогаем
                 if (particle.Life <= 0)
                 {
                     ResetParticle(particle); // заменили этот блок на вызов сброса частицы 
@@ -41,6 +44,7 @@ namespace TP_Kursovay
                     particle.X += particle.SpeedX;
                     particle.Y += particle.SpeedY;
 
+                    particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
                 }
             }
@@ -74,8 +78,8 @@ namespace TP_Kursovay
         {
             particle.Life = Particle.rand.Next(LifeMin, LifeMax);
 
-            particle.X = X;
-            particle.Y = Y;
+            particle.X = (float)X;
+            particle.Y = (float)Y;
 
             var direction = Direction
                 + (double)Particle.rand.Next(Spreading)
@@ -86,7 +90,7 @@ namespace TP_Kursovay
             particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
             particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
 
-            particle.Radius = 12;//Particle.rand.Next(RadiusMin, RadiusMax);
+            particle.Radius = Particle.rand.Next(RadiusMin, RadiusMax);
         }
 
         /* добавил метод */
